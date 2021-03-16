@@ -1,0 +1,31 @@
+// Colors
+$color-blue: #2b2f52;
+$color-orange: #ffa600;
+
+// Spacing
+$spacing-largest: 160px;
+$spacing-xxx-large: 120px;
+$spacing-xx-large: 80px;
+$spacing-x-large: 64px;
+$spacing-large: 48px;
+$spacing-semi: 32px;
+$spacing-standard: 24px;
+$spacing-small: 16px;
+$spacing-tiny: 8px;
+$spacing-micro: 4px;
+
+// Miscellaneous
+$base-font-size: $spacing-small;
+$container-width: 1312px;
+$container-padding-desktop: $spacing-x-large;
+$container-padding-mobile: $spacing-standard;
+$grid-gutter-width: $spacing-standard;
+$grid-margin-height: $spacing-standard;
+$transition-duration-standard: 0.25s;
+
+// Convert pixels to rem
+@function rem($pixelSize) {
+  $remSize: $pixelSize / $base-font-size;
+
+  @return #{$remSize}rem;
+}

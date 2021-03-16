@@ -1,0 +1,76 @@
+// Breakpoints
+$breakpoints: (
+  'sm-up': (min-width: 576px),
+  'md-up': (min-width: 768px),
+  'lg-up': (min-width: 992px),
+  'sm-down': (max-width: 767.98px),
+  'md-down': (max-width: 991.98px),
+  'lg-down': (max-width: 1199.98px)
+) !default;
+
+/// Mixin to manage responsive breakpoints
+/// @author Hugo Giraudel
+/// @param {String} $breakpoint - Breakpoint name
+/// @require $breakpoints
+@mixin breakpoint($breakpoint) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. '
+      + 'Available breakpoints are: #{map-keys($breakpoints)}.';
+  }
+}
+
+@mixin makeCols($cols) {
+  display: grid;
+  height: 100%;
+  column-gap: $grid-gutter-width;
+  grid-template-columns: repeat($cols, 1fr);
+  row-gap: $grid-margin-height;
+}
+
+@mixin makeFixedCol($colStart, $colEnd) {
+  grid-column-start: $colStart;
+  grid-column-end: $colEnd;
+}
+
+@mixin container() {
+  max-width: $container-width + ($container-padding-desktop * 2);
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $container-padding-desktop;
+  padding-left: $container-padding-desktop;
+
+  .container & {
+    max-width: unset;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  @include breakpoint(sm-down) {
+    padding-right: $container-padding-mobile;
+    padding-left: $container-padding-mobile;
+
+    .container & {
+      max-width: unset;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}
+
+@mixin container-grid {
+  @include container;
+
+  @include breakpoint(md-up) {
+    @include makeCols(24);
+  }
+}
