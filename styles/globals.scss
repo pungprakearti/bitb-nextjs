@@ -1,0 +1,58 @@
+@import './main';
+
+html {
+  font-size: $base-font-size;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: black
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+html.scroll-lock {
+  @include breakpoint(md-down) {
+    &,
+    body {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
+/* container with no grid */
+.container {
+  @include container;
+}
+
+/* container with 24 column grid */
+.container-grid {
+  @include container-grid;
+}
+
+/* override Chrome stylesheet input:disabled */
+input:disabled {
+  border: none;
+  background: inherit;
+  color: inherit;
+}
