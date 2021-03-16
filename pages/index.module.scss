@@ -1,0 +1,14 @@
+@import 'styles/main.scss';
+
+.home {
+  margin-top: 50px;
+  text-align: center;
+
+  &_Title {
+    margin-bottom: 50px;
+  }
+
+  &_Image {
+    max-width: 100%;
+  }
+}
