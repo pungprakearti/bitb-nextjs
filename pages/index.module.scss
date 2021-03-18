@@ -1,12 +1,15 @@
 @import 'styles/main.scss';
 
 .home {
-  margin-top: 50px;
+  height: 100vh;
+  padding-top: 50px;
+  background-image: url('/bg.jpeg');
   text-align: center;
 
   &_Title {
     margin-bottom: 25px;
-    text-shadow: 5px 5px black;
+    color: brown;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     -webkit-animation: blink 2s linear infinite;
     -moz-animation: blink 2s linear infinite;
     -ms-animation: blink 2s linear infinite;
@@ -16,8 +19,8 @@
 
   &_Image {
     max-width: 100%;
-    border: 20px groove $color-orange;
-    box-shadow: 10px 10px black;
+    border: 20px groove $color-purple;
+    box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.5);
   }
 }
 

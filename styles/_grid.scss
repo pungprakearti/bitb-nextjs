@@ -71,6 +71,6 @@ $breakpoints: (
   @include container;
 
   @include breakpoint(md-up) {
-    @include makeCols(24);
+    @include makeCols(24); // Set number of grid columns here
   }
 }
