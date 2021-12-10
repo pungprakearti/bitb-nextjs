@@ -1,4 +1,4 @@
-# Aleph Nought NextJS Boilerplate  
+# NextJS Boilerplate  
 
 ## Run application
 `yarn dev`
