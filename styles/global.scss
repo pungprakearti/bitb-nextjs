@@ -11,13 +11,16 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  margin: 0;
-}
-
 html,
 body {
   overflow-x: hidden;
+}
+
+body {
+  @include body;
+
+  margin: 0;
+  background-color: $purple;
 }
 
 h1,
@@ -27,6 +30,18 @@ h4,
 h5,
 h6 {
   margin-top: 0;
+}
+
+h1 {
+  @include h1;
+}
+
+h2 {
+  @include h2;
+}
+
+a {
+  color: $blue;
 }
 
 // Container with no grid

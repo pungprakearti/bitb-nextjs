@@ -7,12 +7,12 @@
   "ignoreFiles": ["**/*.js"],
   "rules": {
     "at-rule-empty-line-before": [ "always", {
-      except: [
+      "except": [
         "blockless-after-same-name-blockless",
-        "first-nested",
+        "first-nested"
       ],
-      ignore: ["after-comment"],
-      ignoreAtRules: [
+      "ignore": ["after-comment"],
+      "ignoreAtRules": [
         "import",
         "include",
         "else"
@@ -33,7 +33,7 @@
     "string-quotes": "single",
     "selector-list-comma-newline-before": "never-multi-line",
     "selector-pseudo-class-no-unknown": [ true, {
-      ignorePseudoClasses: ["", "global"]
+      "ignorePseudoClasses": ["", "global"]
     } ],
     "order/properties-order": [[
       "display",
