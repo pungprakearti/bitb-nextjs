@@ -3,6 +3,7 @@
 - Stylelint
 - Pattern library
 - Grid mixins
+- Media query mixins
 - 404 page
 
 ## Run application
