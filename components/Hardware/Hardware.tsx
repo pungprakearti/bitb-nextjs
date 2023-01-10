@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import HWEnergy from '@/components/HWEnergy'
 import HWPanel from '@/components/HWPanel'
 import HWScreen from '@/components/HWScreen'
@@ -8,8 +8,6 @@ import styles from './Hardware.module.scss'
 const Hardware: React.FC = () => {
   const [mainPowerOn, setMainPowerOn] = useState(false)
   const [energy, setEnergy] = useState(0)
-
-  useEffect(() => {}, [mainPowerOn])
 
   // Toggle on and off main power. This resets everything
   const handleMainPower = (turnOn: boolean) => {
@@ -22,12 +20,19 @@ const Hardware: React.FC = () => {
     return setMainPowerOn(false)
   }
 
+  // Add or subtract energy from components
+  const addEnergy = (amount: number) => {
+    const temp = energy + amount
+    if (temp < 0) setEnergy(0)
+    else setEnergy(energy + amount)
+  }
+
   return (
     <div className={styles.wrap}>
       <HWScreen />
       <HWSelector />
       <HWEnergy energy={energy} />
-      <HWPanel handleMainPower={handleMainPower} />
+      <HWPanel handleMainPower={handleMainPower} addEnergy={addEnergy} />
     </div>
   )
 }
