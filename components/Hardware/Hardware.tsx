@@ -32,7 +32,11 @@ const Hardware: React.FC = () => {
       <HWScreen />
       <HWSelector />
       <HWEnergy energy={energy} />
-      <HWPanel handleMainPower={handleMainPower} addEnergy={addEnergy} />
+      <HWPanel
+        handleMainPower={handleMainPower}
+        addEnergy={addEnergy}
+        energy={energy}
+      />
     </div>
   )
 }

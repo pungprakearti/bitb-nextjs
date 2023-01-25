@@ -1,16 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import cx from 'classnames'
+import genCellsOff from '@/util/cells/genCellsOff'
+import genCellsChecker from '@/util/cells/genCellsChecker'
+import genCellsColumn from '@/util/cells/genCellsColumn'
+import genCellsOn from '@/util/cells/genCellsOn'
+import valCellsOff from '@/util/cells/valCellsOff'
+import valCellsChecker from '@/util/cells/valCellsChecker'
+import valCellsColumn from '@/util/cells/valCellsColumn'
+import valCellsOn from '@/util/cells/valCellsOn'
 import styles from './HWPanel.module.scss'
 
 type Props = {
   handleMainPower: Function
   addEnergy: Function
+  energy: number
 }
 type Dir = 'UP' | 'LEFT' | 'LFDN' | 'RGHT'
 type CurDir = Dir | ''
 type DirPower = Record<Dir, number>
 
-const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
+const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   const initDirPower: DirPower = {
     UP: 0,
     LEFT: 0,
@@ -18,7 +27,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
     RGHT: 0,
   }
 
-  const initCellPower = [...Array(21).fill(false)]
+  const initCellPower = Array(21).fill(false)
 
   const initDirTracker = {
     UP: false,
@@ -34,19 +43,27 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
   const [curDir, setCurDir] = useState<CurDir>('')
   const [radioPower, setRadioPower] = useState(false)
 
+  const radio = useRef<HTMLAudioElement>(null)
+
   useEffect(() => {
-    // If all cells are off while using a direction, turn off that direction
-    if (mainPower && !cellPower.includes(true)) {
-      setDirPower({
-        ...dirPower,
-        [curDir]: 0,
-      })
-      setDirTracker({
-        ...dirTracker,
-        [curDir]: true,
-      })
+    if (mainPower) {
       // Add energy when cells turned off
-      addEnergy(Math.floor(Math.random() * 4) + 22)
+      if (curDir && dirTracker[curDir]) {
+        switch (curDir) {
+          case 'UP': {
+            return addEnergy(27)
+          }
+          case 'LEFT': {
+            return addEnergy(22)
+          }
+          case 'LFDN': {
+            return addEnergy(26)
+          }
+          default: {
+            return addEnergy(24)
+          }
+        }
+      }
     }
   }, [cellPower])
 
@@ -73,6 +90,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
     setCellPower(initCellPower)
     setDirTracker(initDirTracker)
     setCurDir('')
+    handleRadioPower(false)
     return handleMainPower(false)
   }
 
@@ -81,8 +99,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
   const handleDirPower = (dir: Dir) => {
     // Don't allow power to direction buttons if main power is off
     // Do not turn on again if all cells turned off
-    // Don't react if same button clicked again
-    if (!mainPower || dirTracker[dir] || curDir === dir) return
+    if (!mainPower || dirTracker[dir]) return
 
     // Track current direction button in state
     setCurDir(dir)
@@ -96,36 +113,79 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
       [dir]: 1,
     })
 
-    // Randomize powered cell buttons
-    let randCells: number[] = []
-    while (randCells.length < Math.ceil(Math.random() * 10) + 2) {
-      const randCell = Math.floor(Math.random() * 21)
-      if (!randCells.includes(randCell)) {
-        randCells.push(randCell)
+    switch (dir) {
+      case 'UP': {
+        return setCellPower(genCellsOff())
+      }
+      case 'LEFT': {
+        return setCellPower(genCellsChecker())
+      }
+      case 'LFDN': {
+        return setCellPower(genCellsColumn())
+      }
+      default: {
+        return setCellPower(genCellsOn())
       }
     }
-
-    // Assign power to cells
-    let tempCellPower = []
-    for (let cell = 0; cell < cellPower.length; cell++) {
-      if (randCells.includes(cell)) tempCellPower.push(true)
-      else tempCellPower.push(false)
-    }
-    setCellPower(tempCellPower)
   }
 
   const handleCellClick = (cell: number) => {
-    // If all cells are off, don't allow any to be turned on
-    if (!cellPower.includes(true)) return
+    const turnOffDirButton = () => {
+      setCellPower(Array(21).fill(false))
+      setDirTracker({
+        ...dirTracker,
+        [curDir]: true,
+      })
+
+      setDirPower({
+        ...dirPower,
+        [curDir]: 0,
+      })
+    }
+
+    if (!mainPower) return
+
+    // Don't allow button presses if direction is already finished
+    if (curDir && dirTracker[curDir]) return
 
     let tempCellPower = [...cellPower]
     tempCellPower[cell] = !tempCellPower[cell]
     setCellPower(tempCellPower)
+
+    switch (curDir) {
+      case 'UP': {
+        if (valCellsOff(tempCellPower)) return turnOffDirButton()
+      }
+      case 'LEFT': {
+        if (valCellsChecker(tempCellPower)) return turnOffDirButton()
+      }
+      case 'LFDN': {
+        if (valCellsColumn(tempCellPower)) return turnOffDirButton()
+      }
+      default: {
+        if (valCellsOn(tempCellPower)) return turnOffDirButton()
+      }
+    }
   }
 
   const handleRadioPower = (turnOn: boolean) => {
-    if (turnOn) setRadioPower(true)
-    else setRadioPower(false)
+    // On switch and more than 30 energy
+    if (turnOn) {
+      if (energy > 30) {
+        setRadioPower(true)
+        radio?.current?.play()
+        addEnergy(-30)
+      }
+
+      // Off switch
+    } else {
+      // Return energy
+      if (radioPower) {
+        setRadioPower(false)
+        radio?.current?.pause()
+        addEnergy(30)
+      }
+    }
   }
 
   // Create directional elements
@@ -151,12 +211,10 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
   for (let cell = 0; cell < cellPower.length; cell++) {
     cellsEl.push(
       <button
-        className={cx({ [styles.on]: cellPower[cell] })}
+        className={cx(styles.cell, { [styles.on]: cellPower[cell] })}
         onClick={() => handleCellClick(cell)}
         key={cell}
-      >
-        {cell}
-      </button>
+      />
     )
   }
 
@@ -178,12 +236,23 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy }) => {
       <div className={styles.center}>{cellsEl}</div>
       <div className={styles.radio}>
         <div className={styles.radioLeft}>
-          <button onClick={() => handleRadioPower(true)}>1</button>
+          <button
+            className={cx(
+              { [styles.on]: radioPower },
+              { [styles.dim]: energy > 30 }
+            )}
+            onClick={() => handleRadioPower(true)}
+          >
+            1
+          </button>
           <button onClick={() => handleRadioPower(false)}>0</button>
         </div>
-        <div className={cx(styles.screen, { [styles.on]: radioPower })}>
-          Radio
-        </div>
+        <div className={styles.screen}>Radio 30</div>
+        <audio
+          src='/relaxed_vlog-ashot-danielyan-composer.mp3'
+          loop
+          ref={radio}
+        />
       </div>
     </div>
   )
