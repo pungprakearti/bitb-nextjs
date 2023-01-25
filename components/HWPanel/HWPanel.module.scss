@@ -11,3 +11,16 @@
 .on {
   background-color: red;
 }
+
+.center {
+  @include makeCols(7);
+
+  grid-gap: 0;
+  width: 168px;
+  margin: 0 auto;
+}
+
+.cell {
+  width: 24px;
+  height: 24px;
+}

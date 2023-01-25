@@ -2,7 +2,7 @@ import styles from './HWScreen.module.scss'
 
 const HWScreen: React.FC = () => (
   <div className={styles.wrap}>
-    <div>Screen</div>
+    <div>Screen 55</div>
     <div className={styles.right}>
       <button>1</button>
       <button>0</button>
