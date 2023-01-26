@@ -1,0 +1,112 @@
+@import 'styles/main.scss';
+
+$transition-duration-button: 0.075s;
+
+.buttonSpaceWrap {
+  position: relative;
+  height: 42px;
+  width: 44px;
+}
+
+.buttonSpace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 44px;
+  width: 44px;
+  background-color: $black;
+}
+
+.buttonOuter {
+  position: relative;
+  height: 45px;
+  width: 40px;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
+.buttonTop,
+.button {
+  transition: background-color $transition-duration-button ease;
+}
+
+.buttonTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 10px;
+  background-color: $gray;
+  width: 40px;
+}
+
+.button {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  top: 5px;
+  left: 0;
+  transition: top $transition-duration-button ease;
+  border: none;
+  background-color: $lightgray;
+  border-radius: 2px;
+  padding: 0;
+
+  &:active {
+    top: 0px;
+  }
+
+  &:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: '';
+    height: 40px;
+    width: 40px;
+    opacity: 0.75;
+    transition: box-shadow $transition-duration-button ease;
+  }
+}
+
+.on {
+  .buttonTop {
+    background-color: rgba($red, 0.7);
+  }
+
+  .button {
+    background-color: $red;
+
+    &:after {
+      box-shadow: 0 0 15px $red;
+    }
+  }
+}
+
+.dim {
+  .buttonTop {
+    background-color: rgba($pink, 0.7);
+  }
+
+  .button {
+    background-color: $pink;
+
+    &:after {
+      box-shadow: 0 0 15px $pink;
+    }
+  }
+}
+
+.dir {
+  .buttonTop {
+    top: 2px;
+  }
+
+  .button {
+    top: 7px;
+
+    &:active {
+      top: 2px;
+    }
+  }
+}

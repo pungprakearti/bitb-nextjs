@@ -9,6 +9,7 @@ import valCellsChecker from '@/util/cells/valCellsChecker'
 import valCellsColumn from '@/util/cells/valCellsColumn'
 import valCellsOn from '@/util/cells/valCellsOn'
 import styles from './HWPanel.module.scss'
+import PressableButton from '../PressableButton'
 
 type Props = {
   handleMainPower: Function
@@ -18,6 +19,7 @@ type Props = {
 type Dir = 'UP' | 'LEFT' | 'LFDN' | 'RGHT'
 type CurDir = Dir | ''
 type DirPower = Record<Dir, number>
+type PowerStatus = 'on' | 'dim' | 'off'
 
 const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   const initDirPower: DirPower = {
@@ -152,18 +154,20 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
     tempCellPower[cell] = !tempCellPower[cell]
     setCellPower(tempCellPower)
 
-    switch (curDir) {
-      case 'UP': {
-        if (valCellsOff(tempCellPower)) return turnOffDirButton()
-      }
-      case 'LEFT': {
-        if (valCellsChecker(tempCellPower)) return turnOffDirButton()
-      }
-      case 'LFDN': {
-        if (valCellsColumn(tempCellPower)) return turnOffDirButton()
-      }
-      default: {
-        if (valCellsOn(tempCellPower)) return turnOffDirButton()
+    if (curDir) {
+      switch (curDir) {
+        case 'UP': {
+          if (valCellsOff(tempCellPower)) return turnOffDirButton()
+        }
+        case 'LEFT': {
+          if (valCellsChecker(tempCellPower)) return turnOffDirButton()
+        }
+        case 'LFDN': {
+          if (valCellsColumn(tempCellPower)) return turnOffDirButton()
+        }
+        default: {
+          if (valCellsOn(tempCellPower)) return turnOffDirButton()
+        }
       }
     }
   }
@@ -171,7 +175,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   const handleRadioPower = (turnOn: boolean) => {
     // On switch and more than 30 energy
     if (turnOn) {
-      if (energy > 30) {
+      if (!radioPower && energy > 30) {
         setRadioPower(true)
         radio?.current?.play()
         addEnergy(-30)
@@ -192,17 +196,18 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   let dirEls: JSX.Element[] = []
   const dirNames: Dir[] = ['UP', 'LEFT', 'LFDN', 'RGHT']
   dirNames.forEach((dir) => {
+    let dirPowerStatus: PowerStatus = 'off'
+    if (dirPower[dir] === 0.5) dirPowerStatus = 'dim'
+    if (dirPower[dir] === 1) dirPowerStatus = 'on'
     dirEls.push(
-      <button
-        className={cx(
-          { [styles.dim]: dirPower[dir] === 0.5 },
-          { [styles.on]: dirPower[dir] === 1 }
-        )}
-        onClick={() => handleDirPower(dir)}
-        key={dir}
-      >
-        {dir}
-      </button>
+      <div className={styles[dir]} key={dir}>
+        <PressableButton
+          handleClick={() => handleDirPower(dir)}
+          power={dirPowerStatus}
+          text={dir}
+          dir={true}
+        />
+      </div>
     )
   })
 
@@ -210,44 +215,51 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   let cellsEl = []
   for (let cell = 0; cell < cellPower.length; cell++) {
     cellsEl.push(
-      <button
-        className={cx(styles.cell, { [styles.on]: cellPower[cell] })}
-        onClick={() => handleCellClick(cell)}
-        key={cell}
+      <PressableButton
+        handleClick={() => handleCellClick(cell)}
+        power={cellPower[cell] ? 'on' : 'off'}
+        key={`cell-${cell}`}
       />
     )
   }
 
+  // Power setting for radio button
+  let radioPowerStatus: PowerStatus = 'off'
+  if (energy > 30) radioPowerStatus = 'dim'
+  if (radioPower) radioPowerStatus = 'on'
+
   return (
     <div className={styles.wrap}>
       <div className={styles.power}>
-        <button
-          className={cx(
-            { [styles.dim]: !mainPower },
-            { [styles.on]: mainPower }
-          )}
-          onClick={() => handlePower(true)}
-        >
-          1
-        </button>
-        <button onClick={() => handlePower(false)}>0</button>
-      </div>
-      <div className={styles.direction}>{dirEls}</div>
-      <div className={styles.center}>{cellsEl}</div>
-      <div className={styles.radio}>
-        <div className={styles.radioLeft}>
-          <button
-            className={cx(
-              { [styles.on]: radioPower },
-              { [styles.dim]: energy > 30 }
-            )}
-            onClick={() => handleRadioPower(true)}
-          >
-            1
-          </button>
-          <button onClick={() => handleRadioPower(false)}>0</button>
+        <div className={styles.powerInner}>
+          <PressableButton
+            handleClick={() => handlePower(true)}
+            text='1'
+            power={mainPower ? 'on' : 'dim'}
+          />
+          <PressableButton handleClick={() => handlePower(false)} text='0' />
         </div>
-        <div className={styles.screen}>Radio 30</div>
+      </div>
+      <div className={styles.direction}>
+        <div className={styles.directionInner}>{dirEls}</div>
+      </div>
+      <div className={styles.center}>
+        <div className={styles.centerInner}>
+          <div className={styles.centerCells}>{cellsEl}</div>
+        </div>
+      </div>
+      <div className={styles.radio}>
+        <div className={styles.radioInner}>
+          <PressableButton
+            handleClick={() => handleRadioPower(true)}
+            text='1'
+            power={radioPowerStatus}
+          />
+          <PressableButton
+            handleClick={() => handleRadioPower(false)}
+            text='0'
+          />
+        </div>
         <audio
           src='/relaxed_vlog-ashot-danielyan-composer.mp3'
           loop
