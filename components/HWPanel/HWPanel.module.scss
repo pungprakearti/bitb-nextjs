@@ -1,26 +1,97 @@
 @import 'styles/main.scss';
 
 .wrap {
-  border: 1px solid violet;
+  display: flex;
+  width: 80%;
+  height: 200px;
+  background-color: rgba($white, 0.1);
 }
 
-.dim {
-  background-color: pink;
+.power,
+.radio {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: $spacing-standard;
+  padding: $spacing-tiny;
 }
 
-.on {
-  background-color: red;
+.power,
+.direction,
+.center {
+  border-right: 1px solid rgba($black, 0.9);
+}
+
+.powerInner,
+.directionInner,
+.centerInner,
+.radioInner {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba($white, 0.1);
+  border-radius: 4px;
+}
+
+.powerInner,
+.radioInner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: $spacing-standard;
+}
+
+.direction {
+  position: relative;
+  width: 25%;
+  height: 100%;
+  padding: $spacing-tiny;
+}
+
+.UP {
+  position: absolute;
+  top: $spacing-standard;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.LEFT {
+  position: absolute;
+  left: $spacing-standard;
+  top: 22%;
+}
+
+.LFDN {
+  position: absolute;
+  left: $spacing-standard;
+  top: calc(43% + #{$spacing-standard});
+}
+
+.RGHT {
+  position: absolute;
+  right: $spacing-standard;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .center {
-  @include makeCols(7);
-
-  grid-gap: 0;
-  width: 168px;
-  margin: 0 auto;
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-tiny;
 }
 
-.cell {
-  width: 24px;
-  height: 24px;
+.centerInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centerCells {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
 }

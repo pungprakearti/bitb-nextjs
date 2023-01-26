@@ -1,24 +1,22 @@
 @font-face {
   font-family: 'roboto';
   src: local('roboto'), url('/fonts/roboto-regular.ttf');
-  src:
-    url('/fonts/roboto-regular.ttf') format('truetype'),
+  src: url('/fonts/roboto-regular.ttf') format('truetype'),
     url('/fonts/roboto-regular.woff') format('woff'),
     url('/fonts/roboto-regular.woff2') format('woff2');
 }
 
-@mixin roboto () {
+@mixin roboto() {
   font-family: roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-style: normal;
 }
 
-@mixin h1 () {
+@mixin h1() {
   @include roboto;
 
   margin: 0;
-  color: $cyan;
   font-size: rem(56px);
   font-weight: 500;
   line-height: 1.2em;
@@ -28,11 +26,10 @@
   }
 }
 
-@mixin h2 () {
+@mixin h2() {
   @include roboto;
 
   margin: 0;
-  color: $orange;
   font-size: rem(32px);
   font-weight: 700;
   line-height: 1;
@@ -43,10 +40,9 @@
   }
 }
 
-@mixin body () {
+@mixin body() {
   @include roboto;
 
-  color: $pink;
   font-size: rem(20px);
   font-weight: 400;
   line-height: 1.6em;
