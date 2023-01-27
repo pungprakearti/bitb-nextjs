@@ -1,11 +1,10 @@
 @import 'styles/main.scss';
 
-$transition-duration-screen: 1s;
-
 .wrap {
   background-color: $cyan;
   width: 175px;
   height: 350px;
+  border-radius: 2px;
 }
 
 .screenWrap {
