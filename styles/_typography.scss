@@ -58,5 +58,6 @@
 @mixin screen() {
   @include courier;
 
-  font-size: rem(16px);
+  font-size: rem(14px);
+  line-height: 1.25;
 }
