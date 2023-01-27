@@ -6,6 +6,13 @@
     url('/fonts/roboto-regular.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'digital7';
+  src: local('digital7'), url('/fonts/digital7.woff');
+  src: url('/fonts/digital7.woff') format('woff'),
+    url('/fonts/digital7.woff2') format('woff2');
+}
+
 @mixin roboto() {
   font-family: roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -15,6 +22,13 @@
 
 @mixin courier() {
   font-family: 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+}
+
+@mixin digital7() {
+  font-family: digital7, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-style: normal;

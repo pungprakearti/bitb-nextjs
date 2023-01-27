@@ -33,6 +33,7 @@ $container-padding-mobile: $spacing-standard;
 $grid-gutter-width: $spacing-standard;
 $grid-margin-height: $spacing-standard;
 $transition-duration-standard: 0.25s;
+$transition-duration-screen: 1s;
 
 // Convert pixels to rem
 @function rem($pixelSize) {
