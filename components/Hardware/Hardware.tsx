@@ -30,7 +30,11 @@ const Hardware: React.FC = () => {
   return (
     <div className={styles.wrap}>
       <HWScreen />
-      <HWSelector />
+      <HWSelector
+        energy={energy}
+        addEnergy={addEnergy}
+        mainPowerOn={mainPowerOn}
+      />
       <HWEnergy energy={energy} />
       <HWPanel
         handleMainPower={handleMainPower}

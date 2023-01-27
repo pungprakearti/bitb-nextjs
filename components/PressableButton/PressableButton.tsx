@@ -5,17 +5,29 @@ type Props = {
   handleClick: React.MouseEventHandler<HTMLButtonElement>
   text?: string
   power?: 'on' | 'dim' | 'off'
-  dir?: boolean
+  type?: 'def' | 'dir' | 'sel' | 'sel-enter'
 }
 
 const PressableButton: React.FC<Props> = ({
   handleClick,
   text = '',
   power = 'off',
-  dir = false,
+  type = 'def',
 }) => (
   <div
-    className={cx(styles.buttonSpaceWrap, styles[power], { [styles.dir]: dir })}
+    className={cx(
+      styles.buttonSpaceWrap,
+      styles[power],
+      {
+        [styles.dir]: type === 'dir',
+      },
+      {
+        [styles.sel]: type === 'sel' || type === 'sel-enter',
+      },
+      {
+        [styles.selEnter]: type === 'sel-enter',
+      }
+    )}
   >
     <div className={styles.buttonSpace} />
     <div className={styles.buttonOuter}>

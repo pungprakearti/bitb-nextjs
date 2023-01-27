@@ -110,3 +110,61 @@ $transition-duration-button: 0.075s;
     }
   }
 }
+
+.sel {
+  .buttonTop {
+    background-color: rgba($lightcyan, 0.7);
+  }
+
+  .button {
+    background-color: $lightcyan;
+    color: $white;
+  }
+
+  .buttonSpace {
+    background-color: rgba($black, 0.4);
+  }
+
+  &.dim {
+    .buttonTop {
+      background-color: rgba($orange, 0.25);
+    }
+
+    .button {
+      background-color: $lightorange;
+
+      &:after {
+        box-shadow: 0 0 15px $lightorange;
+      }
+    }
+  }
+
+  &.on {
+    .buttonTop {
+      background-color: rgba($orange, 0.35);
+    }
+
+    .button {
+      background-color: $orange;
+
+      &:after {
+        box-shadow: 0 0 20px $orange;
+      }
+    }
+  }
+}
+
+.selEnter {
+  &.buttonSpaceWrap {
+    width: 100px;
+  }
+
+  .buttonSpace {
+    width: 99px;
+  }
+
+  .button,
+  .buttonTop {
+    width: 95px;
+  }
+}

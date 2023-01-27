@@ -205,7 +205,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
           handleClick={() => handleDirPower(dir)}
           power={dirPowerStatus}
           text={dir}
-          dir={true}
+          type='dir'
         />
       </div>
     )
