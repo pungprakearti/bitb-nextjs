@@ -1,5 +1,120 @@
 @import 'styles/main.scss';
 
+$transition-duration-screen: 1s;
+
 .wrap {
-  border: 1px solid violet;
+  background-color: $cyan;
+  width: 175px;
+  height: 350px;
+}
+
+.screenWrap {
+  height: 45%;
+  background-color: $cyan;
+  padding: $spacing-tiny;
+}
+
+.screenInner {
+  background-color: $cyan;
+  border: 10px solid $cyan;
+  border-width: 5px 10px 15px 10px;
+  border-color: rgba($black, 0.5) rgba($black, 0.3) rgba($black, 0.1)
+    rgba($black, 0.3);
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  transition: border-color $transition-duration-standard ease;
+
+  .powerOn & {
+    border-color: rgba($black, 0.1) rgba($black, 0.2) rgba($black, 0.05)
+      rgba($black, 0.2);
+  }
+}
+
+.screen {
+  background-color: rgba($black, 0.7);
+  box-shadow: 0 0 20px rgba($lightgray, 0.5);
+  width: 100%;
+  height: 100%;
+  transition: background-color $transition-duration-standard ease;
+
+  .powerOn & {
+    background-color: $gray;
+  }
+}
+
+.selections {
+  padding: 0;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.selection {
+  @include screen;
+
+  position: relative;
+  list-style: none;
+  font-size: rem(14px);
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: $lightgreen;
+  text-shadow: 0 0 10px $lightgreen;
+  opacity: 0;
+  transition: opacity $transition-duration-screen ease;
+
+  .powerOn & {
+    opacity: 1;
+  }
+
+  &:after {
+    position: absolute;
+    display: block;
+    content: '>';
+    top: 0;
+    left: $spacing-tiny;
+    opacity: 0;
+    transition: opacity $transition-duration-standard ease;
+  }
+
+  &__selected {
+    &:after {
+      opacity: 1;
+    }
+  }
+}
+
+.bottom {
+  height: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.bottomInner {
+  border: 1px solid $black;
+  padding: 10px;
+  border-width: 10px 5px 2px 5px;
+  border-color: $lightcyan rgba($lightcyan, 0.3) rgba($lightcyan, 0.2)
+    rgba($lightcyan, 0.25);
+  background-color: rgba($white, 0.05);
+}
+
+.buttonsTop {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.buttonsTopLeft,
+.buttonsTopRight {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buttonsBottom {
+  display: flex;
+  justify-content: center;
 }
