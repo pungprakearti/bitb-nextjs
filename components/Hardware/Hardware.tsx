@@ -29,13 +29,19 @@ const Hardware: React.FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <HWScreen />
-      <HWSelector
-        energy={energy}
-        addEnergy={addEnergy}
-        mainPowerOn={mainPowerOn}
-      />
-      <HWEnergy energy={energy} />
+      <div className={styles.top}>
+        <div className={styles.topLeft}>
+          <HWScreen energy={energy} addEnergy={addEnergy} />
+        </div>
+        <div className={styles.topRight}>
+          <HWSelector
+            energy={energy}
+            addEnergy={addEnergy}
+            mainPowerOn={mainPowerOn}
+          />
+          <HWEnergy energy={energy} />
+        </div>
+      </div>
       <HWPanel
         handleMainPower={handleMainPower}
         addEnergy={addEnergy}

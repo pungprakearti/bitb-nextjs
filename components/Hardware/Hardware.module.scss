@@ -1,8 +1,17 @@
 @import 'styles/main.scss';
 
 .wrap {
-  width: 1200px;
-  height: 700px;
-  border: 1px solid violet;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top {
+  display: flex;
+}
+
+.topRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

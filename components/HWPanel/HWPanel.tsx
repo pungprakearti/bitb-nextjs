@@ -16,7 +16,7 @@ type Props = {
   addEnergy: Function
   energy: number
 }
-type Dir = 'UP' | 'LEFT' | 'LFDN' | 'RGHT'
+type Dir = 'UP' | 'LEFT' | 'DOWN' | 'RGHT'
 type CurDir = Dir | ''
 type DirPower = Record<Dir, number>
 type PowerStatus = 'on' | 'dim' | 'off'
@@ -25,7 +25,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   const initDirPower: DirPower = {
     UP: 0,
     LEFT: 0,
-    LFDN: 0,
+    DOWN: 0,
     RGHT: 0,
   }
 
@@ -34,7 +34,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   const initDirTracker = {
     UP: false,
     LEFT: false,
-    LFDN: false,
+    DOWN: false,
     RGHT: false,
   }
 
@@ -58,7 +58,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
           case 'LEFT': {
             return addEnergy(22)
           }
-          case 'LFDN': {
+          case 'DOWN': {
             return addEnergy(26)
           }
           default: {
@@ -77,7 +77,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
         setDirPower({
           UP: 0.5,
           LEFT: 0.5,
-          LFDN: 0.5,
+          DOWN: 0.5,
           RGHT: 0.5,
         })
         return handleMainPower(true)
@@ -110,7 +110,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
     setDirPower({
       UP: dirTracker.UP ? 0 : 0.5,
       LEFT: dirTracker.LEFT ? 0 : 0.5,
-      LFDN: dirTracker.LFDN ? 0 : 0.5,
+      DOWN: dirTracker.DOWN ? 0 : 0.5,
       RGHT: dirTracker.RGHT ? 0 : 0.5,
       [dir]: 1,
     })
@@ -122,7 +122,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
       case 'LEFT': {
         return setCellPower(genCellsChecker())
       }
-      case 'LFDN': {
+      case 'DOWN': {
         return setCellPower(genCellsColumn())
       }
       default: {
@@ -162,7 +162,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
         case 'LEFT': {
           if (valCellsChecker(tempCellPower)) return turnOffDirButton()
         }
-        case 'LFDN': {
+        case 'DOWN': {
           if (valCellsColumn(tempCellPower)) return turnOffDirButton()
         }
         default: {
@@ -194,7 +194,8 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
 
   // Create directional elements
   let dirEls: JSX.Element[] = []
-  const dirNames: Dir[] = ['UP', 'LEFT', 'LFDN', 'RGHT']
+  const dirNames: Dir[] = ['UP', 'LEFT', 'DOWN', 'RGHT']
+  const nameToText = { UP: '▲', LEFT: '◀︎', DOWN: '▼', RGHT: '►' }
   dirNames.forEach((dir) => {
     let dirPowerStatus: PowerStatus = 'off'
     if (dirPower[dir] === 0.5) dirPowerStatus = 'dim'
@@ -204,7 +205,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
         <PressableButton
           handleClick={() => handleDirPower(dir)}
           power={dirPowerStatus}
-          text={dir}
+          text={nameToText[dir]}
           type='dir'
         />
       </div>
@@ -250,15 +251,24 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
       </div>
       <div className={styles.radio}>
         <div className={styles.radioInner}>
-          <PressableButton
-            handleClick={() => handleRadioPower(true)}
-            text='1'
-            power={radioPowerStatus}
-          />
-          <PressableButton
-            handleClick={() => handleRadioPower(false)}
-            text='0'
-          />
+          <div className={styles.radioButtons}>
+            <PressableButton
+              handleClick={() => handleRadioPower(true)}
+              text='1'
+              power={radioPowerStatus}
+            />
+            <PressableButton
+              handleClick={() => handleRadioPower(false)}
+              text='0'
+            />
+          </div>
+          <div className={styles.speaker}>
+            <div className={styles.speakerHole} />
+            <div className={styles.speakerHole} />
+            <div className={styles.speakerHole} />
+            <div className={styles.speakerHole} />
+            <div className={styles.speakerHole} />
+          </div>
         </div>
         <audio
           src='/relaxed_vlog-ashot-danielyan-composer.mp3'

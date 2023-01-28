@@ -168,3 +168,93 @@ $transition-duration-button: 0.075s;
     width: 95px;
   }
 }
+
+.scr {
+  margin-right: 4px;
+
+  &.buttonSpaceWrap {
+    width: 60px;
+    height: 60px;
+  }
+
+  .buttonSpace {
+    width: 64px;
+    height: 64px;
+    background-color: rgba($black, 0.7);
+  }
+
+  .button,
+  .buttonTop {
+    width: 60px;
+    height: 60px;
+  }
+
+  .button {
+    background-color: $mediumgray;
+    color: rgba($white, 0.7);
+  }
+
+  .buttonTop {
+    background-color: $darkgray;
+  }
+}
+
+.scrPower {
+  margin-right: 4px;
+
+  &.buttonSpaceWrap {
+    width: 80px;
+    height: 30px;
+  }
+
+  .buttonSpace {
+    width: 84px;
+    height: 35px;
+    background-color: rgba($black, 0.7);
+  }
+
+  .button,
+  .buttonTop {
+    width: 80px;
+    height: 30px;
+    margin-top: 2px;
+  }
+
+  .button {
+    position: relative;
+    background-color: $mediumgray;
+    color: rgba($white, 0.7);
+    padding-left: 14px;
+
+    &:after {
+      position: absolute;
+      display: block;
+      content: '';
+      width: 10px;
+      height: 5px;
+      background-color: $lightgray;
+      left: 12px;
+
+      transition: color $transition-duration-standard ease,
+        box-shadow $transition-duration-standard ease;
+    }
+  }
+
+  .buttonTop {
+    background-color: $darkgray;
+  }
+
+  &.dim {
+    .button:after {
+      background-color: $pink;
+      box-shadow: 0 0 10px $pink;
+    }
+  }
+
+  &.on {
+    .button:after {
+      background-color: $red;
+      box-shadow: 0 0 10px $red;
+    }
+  }
+}

@@ -1,22 +1,41 @@
 @import 'styles/main.scss';
 
 .wrap {
+  position: relative;
   display: flex;
-  width: 80%;
+  width: 1000px;
   height: 200px;
-  background-color: rgba($white, 0.1);
+  background-color: $darkgray;
   border-radius: 2px;
+
+  &:after {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 100%;
+    height: 200px;
+    background-color: $mediumgray;
+    top: -200px;
+    z-index: -2;
+  }
 }
 
 .power,
 .radio {
-  width: 15%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: $spacing-standard;
   padding: $spacing-tiny;
+}
+
+.radio {
+  width: 20%;
+}
+
+.power {
+  width: 10%;
 }
 
 .power,
@@ -38,10 +57,13 @@
 .powerInner,
 .radioInner {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: $spacing-standard;
+}
+
+.powerInner {
+  flex-direction: column;
 }
 
 .direction {
@@ -61,13 +83,15 @@
 .LEFT {
   position: absolute;
   left: $spacing-standard;
-  top: 22%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.LFDN {
+.DOWN {
   position: absolute;
-  left: $spacing-standard;
-  top: calc(43% + #{$spacing-standard});
+  left: 50%;
+  bottom: $spacing-standard;
+  transform: translateX(-50%);
 }
 
 .RGHT {
@@ -95,4 +119,32 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
+}
+
+.radioButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 45%;
+  row-gap: $spacing-standard;
+}
+
+.speaker {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 55%;
+  height: 100%;
+  gap: 10px;
+  padding-right: 10px;
+}
+
+.speakerHole {
+  width: 80%;
+  height: 4px;
+  background-color: rgba($black, 0.5);
+  border-radius: 5px;
 }
