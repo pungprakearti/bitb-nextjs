@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react'
-import cx from 'classnames'
 import genCellsOff from '@/util/cells/genCellsOff'
 import genCellsChecker from '@/util/cells/genCellsChecker'
 import genCellsColumn from '@/util/cells/genCellsColumn'
@@ -224,6 +223,9 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
     )
   }
 
+  // Create speaker holes for radio
+  const speakerEl = Array(5).fill(<div className={styles.speakerHole} />)
+
   // Power setting for radio button
   let radioPowerStatus: PowerStatus = 'off'
   if (energy > 30) radioPowerStatus = 'dim'
@@ -262,13 +264,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
               text='0'
             />
           </div>
-          <div className={styles.speaker}>
-            <div className={styles.speakerHole} />
-            <div className={styles.speakerHole} />
-            <div className={styles.speakerHole} />
-            <div className={styles.speakerHole} />
-            <div className={styles.speakerHole} />
-          </div>
+          <div className={styles.speaker}>{speakerEl}</div>
         </div>
         <audio
           src='/relaxed_vlog-ashot-danielyan-composer.mp3'

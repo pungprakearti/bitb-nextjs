@@ -13,6 +13,7 @@ const HWScreen: React.FC<Props> = ({ energy, addEnergy }) => {
   const [power, setPower] = useState(false)
 
   useEffect(() => {
+    // If no energy, that means main power is off, so turn off screen
     if (energy === 0) setPower(false)
   }, [energy])
 

@@ -8,8 +8,8 @@
   padding: 20px;
   margin-left: 13px;
   margin-right: 7px;
-  margin-bottom: 20px;
-  margin-top: 75px;
+  margin-bottom: rem(20px);
+  margin-top: rem(75px);
 
   &:after {
     position: absolute;
@@ -18,7 +18,7 @@
     height: 75px;
     width: 100%;
     background-color: $midgreen;
-    top: -75px;
+    top: rem(-75px);
     left: 0;
   }
 }
