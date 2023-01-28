@@ -1,11 +1,12 @@
+import { PowerStatus } from 'types'
 import cx from 'classnames'
 import styles from './PressableButton.module.scss'
 
 type Props = {
   handleClick: React.MouseEventHandler<HTMLButtonElement>
   text?: string
-  power?: 'on' | 'dim' | 'off'
-  type?: 'def' | 'dir' | 'sel' | 'sel-enter'
+  power?: PowerStatus
+  type?: 'def' | 'dir' | 'sel' | 'sel-enter' | 'scr' | 'scr-power'
 }
 
 const PressableButton: React.FC<Props> = ({
@@ -26,6 +27,12 @@ const PressableButton: React.FC<Props> = ({
       },
       {
         [styles.selEnter]: type === 'sel-enter',
+      },
+      {
+        [styles.scr]: type === 'scr',
+      },
+      {
+        [styles.scrPower]: type === 'scr-power',
       }
     )}
   >

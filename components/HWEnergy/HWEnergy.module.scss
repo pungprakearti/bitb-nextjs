@@ -1,21 +1,30 @@
 @import 'styles/main.scss';
 
 .wrap {
+  position: relative;
   height: 75px;
   width: 200px;
-  padding: 5px;
+  padding: 10px;
   background-color: $lightgray;
-  border: 1px solid;
-  border-width: 15px 20px 5px 20px;
-  border-color: rgba($white, 0.5) rgba($white, 0.2) rgba($white, 0.1)
-    rgba($white, 0.2);
-  border-radius: 2px;
+  margin-bottom: 10px;
+
+  &:after {
+    position: absolute;
+    display: block;
+    content: '';
+    height: 100px;
+    width: 100%;
+    top: -100px;
+    left: 0;
+    background-color: $offwhite;
+    z-index: -1;
+  }
 }
 
 .inner {
   height: 100%;
   border: 1px solid;
-  border-width: 2px 15px 10px 15px;
+  border-width: 5px 15px 10px 15px;
   border-color: rgba($black, 0.5) rgba($black, 0.2) rgba($black, 0.1)
     rgba($black, 0.2);
 }
@@ -24,11 +33,12 @@
   @include digital7;
 
   height: 100%;
-  padding-right: 12px;
+  padding-right: 20px;
+  padding-top: 2px;
   box-shadow: 0 0 20px rgba($lightgray, 0.5);
   background-color: rgba($black, 0.8);
   color: rgba($white, 0);
-  font-size: rem(30px);
+  font-size: rem(40px);
   letter-spacing: 10px;
   text-align: right;
   text-shadow: 0 0 5px rgba($white, 0);

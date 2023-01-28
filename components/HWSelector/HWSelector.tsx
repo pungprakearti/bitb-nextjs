@@ -19,6 +19,7 @@ const HWSelector: React.FC<Props> = ({ energy, addEnergy, mainPowerOn }) => {
   useEffect(() => {
     if (!mainPowerOn) {
       setPower(false)
+      setCurItem(0)
     }
   }, [mainPowerOn])
 

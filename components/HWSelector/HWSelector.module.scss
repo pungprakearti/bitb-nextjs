@@ -1,10 +1,23 @@
 @import 'styles/main.scss';
 
 .wrap {
+  position: relative;
   background-color: $cyan;
   width: 175px;
   height: 350px;
   border-radius: 2px;
+  margin-left: 7px;
+  margin-bottom: 15px;
+
+  &:after {
+    position: absolute;
+    display: block;
+    content: '';
+    height: 50px;
+    width: 100%;
+    background-color: $lightcyan;
+    top: -50px;
+  }
 }
 
 .screenWrap {
@@ -43,6 +56,7 @@
 .selections {
   padding: 5px 0;
   margin: 0;
+  text-align: center;
 }
 
 .selection {
