@@ -83,7 +83,7 @@
 .LEFT {
   position: absolute;
   left: $spacing-standard;
-  top: rem(50%);
+  top: 50%;
   transform: translateY(-50%);
 }
 
@@ -97,7 +97,7 @@
 .RGHT {
   position: absolute;
   right: $spacing-standard;
-  top: rem(50%);
+  top: 50%;
   transform: translateY(-50%);
 }
 

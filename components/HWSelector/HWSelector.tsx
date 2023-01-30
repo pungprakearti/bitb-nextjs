@@ -8,18 +8,25 @@ type Props = {
   energy: number
   addEnergy: Function
   mainPowerOn: boolean
+  curText: number
+  setCurText: Function
 }
 
-const HWSelector: React.FC<Props> = ({ energy, addEnergy, mainPowerOn }) => {
+const HWSelector: React.FC<Props> = ({
+  energy,
+  addEnergy,
+  mainPowerOn,
+  curText,
+  setCurText,
+}) => {
   const [power, setPower] = useState(false)
-  const [curItem, setCurItem] = useState(0)
 
   const selectionItems = ['welcome', 'about', 'technology']
 
   useEffect(() => {
     if (!mainPowerOn) {
       setPower(false)
-      setCurItem(0)
+      setCurText(0)
     }
   }, [mainPowerOn])
 
@@ -40,14 +47,14 @@ const HWSelector: React.FC<Props> = ({ energy, addEnergy, mainPowerOn }) => {
         break
       case 'UP':
         if (power) {
-          if (curItem === 0) setCurItem(selectionItems.length - 1)
-          else setCurItem(curItem - 1)
+          if (curText === 0) setCurText(selectionItems.length - 1)
+          else setCurText(curText - 1)
         }
         break
       case 'DOWN':
         if (power) {
-          if (curItem === selectionItems.length - 1) setCurItem(0)
-          else setCurItem(curItem + 1)
+          if (curText === selectionItems.length - 1) setCurText(0)
+          else setCurText(curText + 1)
         }
         break
       default:
@@ -60,7 +67,7 @@ const HWSelector: React.FC<Props> = ({ energy, addEnergy, mainPowerOn }) => {
       {selectionItems.map((si, i) => (
         <li
           className={cx(styles.selection, {
-            [styles.selection__selected]: curItem === i,
+            [styles.selection__selected]: curText === i,
           })}
           key={si}
         >
@@ -69,32 +76,6 @@ const HWSelector: React.FC<Props> = ({ energy, addEnergy, mainPowerOn }) => {
       ))}
     </ul>
   )
-  /**
-   *  You are # to get this old piece of junk up and running! What else can you discover?
-   *
-   * This device was built in NextJS using TypeScript and SASS by Andrew Pungprakearti
-   * When Andrew isn't building weird little apps, he is volunteering his time with
-   * Mentor Me of Petaluma, and coaches youth ice hockey for the Santa Rosa Flyers.
-   * He is also a veteran of the United States Marine Corps and served during Operation Enduring Freedom
-   *
-   * Technology:
-   * NextJS
-   * Gatsby
-   * React
-   * TypeScript
-   * JavaScript
-   * GraphQL
-   * SASS
-   * LESS
-   * CSS
-   * Node
-   * Express
-   * Python
-   *
-   *
-   *
-   *
-   */
 
   let powerStatus: PowerStatus = 'off'
   if (energy > 15) powerStatus = 'dim'
