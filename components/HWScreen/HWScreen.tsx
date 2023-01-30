@@ -7,9 +7,10 @@ import styles from './HWScreen.module.scss'
 type Props = {
   energy: number
   addEnergy: Function
+  curText: number
 }
 
-const HWScreen: React.FC<Props> = ({ energy, addEnergy }) => {
+const HWScreen: React.FC<Props> = ({ energy, addEnergy, curText }) => {
   const [power, setPower] = useState(false)
 
   useEffect(() => {
@@ -39,6 +40,15 @@ const HWScreen: React.FC<Props> = ({ energy, addEnergy }) => {
     }
   }
 
+  // This is the text that is displayed when the selector is on
+  const screenText: JSX.Element[] = [
+    <div>
+      You did it! You got this rig running. What other things can you discover?
+    </div>,
+    <div>1</div>,
+    <div>2</div>,
+  ]
+
   let powerStatus: PowerStatus = 'off'
   if (energy > 54) powerStatus = 'dim'
   if (power) powerStatus = 'on'
@@ -49,13 +59,13 @@ const HWScreen: React.FC<Props> = ({ energy, addEnergy }) => {
         <div className={styles.screenWrap}>
           <div className={styles.screenInner}>
             <div className={cx(styles.screen, { [styles.on]: power })}>
-              {power && (
-                <img
-                  className={styles.image}
-                  src='https://cliply.co/wp-content/uploads/2021/07/402107790_STATIC_NOISE_400.gif'
-                  alt='TV static'
-                />
-              )}
+              {power &&
+                // <img
+                //   className={styles.image}
+                //   src='https://cliply.co/wp-content/uploads/2021/07/402107790_STATIC_NOISE_400.gif'
+                //   alt='TV static'
+                // />
+                screenText[curText]}
             </div>
           </div>
         </div>

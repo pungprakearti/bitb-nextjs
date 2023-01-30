@@ -8,6 +8,7 @@ import styles from './Hardware.module.scss'
 const Hardware: React.FC = () => {
   const [mainPowerOn, setMainPowerOn] = useState(false)
   const [energy, setEnergy] = useState(0)
+  const [curText, setCurText] = useState(0)
 
   // Toggle on and off main power. This resets everything
   const handleMainPower = (turnOn: boolean) => {
@@ -31,13 +32,15 @@ const Hardware: React.FC = () => {
     <div className={styles.wrap}>
       <div className={styles.top}>
         <div className={styles.topLeft}>
-          <HWScreen energy={energy} addEnergy={addEnergy} />
+          <HWScreen energy={energy} addEnergy={addEnergy} curText={curText} />
         </div>
         <div className={styles.topRight}>
           <HWSelector
             energy={energy}
             addEnergy={addEnergy}
             mainPowerOn={mainPowerOn}
+            curText={curText}
+            setCurText={setCurText}
           />
           <HWEnergy energy={energy} />
         </div>
