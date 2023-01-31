@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import HWEnergy from '@/components/HWEnergy'
 import HWPanel from '@/components/HWPanel'
 import HWScreen from '@/components/HWScreen'
@@ -9,27 +9,31 @@ const Hardware: React.FC = () => {
   const [mainPowerOn, setMainPowerOn] = useState(false)
   const [energy, setEnergy] = useState(0)
   const [curText, setCurText] = useState(0)
+  const [incText, setIncText] = useState<string[]>([])
+  const [proText, setProText] = useState<JSX.Element[]>([])
+
+  const textOpAndData = {
+    incText: incText,
+    setIncText: setIncText,
+    proText: proText,
+    setProText: setProText,
+  }
 
   const screenText = [
     'You did it!',
     'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
     'What else can you discover?',
-    'You did it!',
-    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
-    'What else can you discover?',
-    'You did it!',
-    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
-    'What else can you discover?',
-    'You did it!',
-    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
-    'What else can you discover?',
-    'test',
   ]
+
+  useEffect(() => {
+    setIncText(screenText)
+  }, [])
 
   // Toggle on and off main power. This resets everything
   const handleMainPower = (turnOn: boolean) => {
     if (turnOn) {
       setEnergy(100) // for testing
+      setIncText(screenText)
       return setMainPowerOn(true)
     }
 
@@ -53,6 +57,7 @@ const Hardware: React.FC = () => {
             addEnergy={addEnergy}
             curText={curText}
             screenText={screenText}
+            textOpAndData={textOpAndData}
           />
         </div>
         <div className={styles.topRight}>
