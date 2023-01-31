@@ -224,7 +224,9 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   }
 
   // Create speaker holes for radio
-  const speakerEl = Array(5).fill(<div className={styles.speakerHole} />)
+  const speakerEl = Array.from(Array(5), (_, i) => (
+    <div key={i} className={styles.speakerHole} />
+  ))
 
   // Power setting for radio button
   let radioPowerStatus: PowerStatus = 'off'
