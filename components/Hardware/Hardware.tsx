@@ -10,10 +10,26 @@ const Hardware: React.FC = () => {
   const [energy, setEnergy] = useState(0)
   const [curText, setCurText] = useState(0)
 
+  const screenText = [
+    'You did it!',
+    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
+    'What else can you discover?',
+    'You did it!',
+    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
+    'What else can you discover?',
+    'You did it!',
+    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
+    'What else can you discover?',
+    'You did it!',
+    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
+    'What else can you discover?',
+    'test',
+  ]
+
   // Toggle on and off main power. This resets everything
   const handleMainPower = (turnOn: boolean) => {
     if (turnOn) {
-      setEnergy(1)
+      setEnergy(100) // for testing
       return setMainPowerOn(true)
     }
 
@@ -32,7 +48,12 @@ const Hardware: React.FC = () => {
     <div className={styles.wrap}>
       <div className={styles.top}>
         <div className={styles.topLeft}>
-          <HWScreen energy={energy} addEnergy={addEnergy} curText={curText} />
+          <HWScreen
+            energy={energy}
+            addEnergy={addEnergy}
+            curText={curText}
+            screenText={screenText}
+          />
         </div>
         <div className={styles.topRight}>
           <HWSelector
