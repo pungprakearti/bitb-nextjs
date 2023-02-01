@@ -38,6 +38,7 @@ const Hardware: React.FC = () => {
     }
 
     setEnergy(0)
+    setProText([<></>])
     return setMainPowerOn(false)
   }
 

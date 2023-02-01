@@ -44,7 +44,6 @@ const HWScreen: React.FC<Props> = ({
     if (energy === 0) {
       setPower(false)
       setCount(0)
-      setProText([<></>])
     }
 
     // Start reading initial text

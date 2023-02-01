@@ -23,7 +23,9 @@ const parseText = (text: string) => {
   tempWords.push('</div>')
   const combinedWords = tempWords.join(' ')
 
-  return <div dangerouslySetInnerHTML={{ __html: combinedWords }} />
+  return (
+    <div key={Date.now()} dangerouslySetInnerHTML={{ __html: combinedWords }} />
+  )
 }
 
 export default parseText
