@@ -2,20 +2,25 @@
 const parseText = (text: string) => {
   let tempWords: string[] = []
 
-  // Check if string contains [link] and if so, create a link for surrounding words
-  const words = text.split(' ')
-  for (let word of words) {
-    if (!word.startsWith('[link=')) {
-      tempWords.push(word)
-    } else {
-      // Remove [link= and [/link]
-      let temp = word.slice(6, -7).split(']')
+  // If LINK create a link on the screen
+  if (text.includes('LINK')) {
+    const tempSplit = text.split('LINK')
 
-      // Push link
-      tempWords.push(
-        `<a class="screen-text-link" href='${temp[0]}' target='_blank' rel='noreferrer'>${temp[1]}</a>`
-      )
-    }
+    // Front
+    tempWords.push(tempSplit[0])
+
+    // Mid
+    const mid = tempSplit[1].split('****')
+    const url = mid[0]
+    const linkText = mid[1]
+    tempWords.push(
+      `<a class="screen-text-link" href='${url}' target='_blank' rel='noreferrer'>${linkText}</a>`
+    )
+
+    // End
+    tempWords.push(tempSplit[2])
+  } else {
+    tempWords.push(text)
   }
 
   // Add closing divs
