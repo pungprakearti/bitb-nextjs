@@ -9,6 +9,8 @@ import valCellsColumn from '@/util/cells/valCellsColumn'
 import valCellsOn from '@/util/cells/valCellsOn'
 import styles from './HWPanel.module.scss'
 import PressableButton from '../PressableButton'
+import startInterval from '@/util/startInterval'
+import restartSound from '@/util/restartSound'
 
 type Props = {
   handleMainPower: Function
@@ -43,8 +45,11 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   const [dirTracker, setDirTracker] = useState(initDirTracker)
   const [curDir, setCurDir] = useState<CurDir>('')
   const [radioPower, setRadioPower] = useState(false)
+  const [victoryCol, setVictoryCol] = useState(7)
 
   const radio = useRef<HTMLAudioElement>(null)
+  const powerUpRef = useRef<HTMLAudioElement>(null)
+  const victoryIntRef = useRef(0)
 
   useEffect(() => {
     if (mainPower) {
@@ -52,18 +57,23 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
       if (curDir && dirTracker[curDir]) {
         switch (curDir) {
           case 'UP': {
-            return addEnergy(27)
+            addEnergy(27)
+            break
           }
           case 'LEFT': {
-            return addEnergy(22)
+            addEnergy(22)
+            break
           }
           case 'DOWN': {
-            return addEnergy(26)
+            addEnergy(26)
+            break
           }
           default: {
-            return addEnergy(24)
+            addEnergy(24)
+            break
           }
         }
+        setCurDir('')
       }
     }
   }, [cellPower])
@@ -79,6 +89,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
           DOWN: 0.5,
           RGHT: 0.5,
         })
+        restartSound(powerUpRef)
         return handleMainPower(true)
       }
     } else {
@@ -92,6 +103,9 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
     setDirTracker(initDirTracker)
     setCurDir('')
     handleRadioPower(false)
+    clearInterval(victoryIntRef.current)
+    setVictoryCol(6)
+    radio.current && (radio.current.currentTime = 0)
     return handleMainPower(false)
   }
 
@@ -156,16 +170,28 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
     if (curDir) {
       switch (curDir) {
         case 'UP': {
-          if (valCellsOff(tempCellPower)) return turnOffDirButton()
+          if (valCellsOff(tempCellPower)) {
+            victory()
+            return turnOffDirButton()
+          }
         }
         case 'LEFT': {
-          if (valCellsChecker(tempCellPower)) return turnOffDirButton()
+          if (valCellsChecker(tempCellPower)) {
+            victory()
+            return turnOffDirButton()
+          }
         }
         case 'DOWN': {
-          if (valCellsColumn(tempCellPower)) return turnOffDirButton()
+          if (valCellsColumn(tempCellPower)) {
+            victory()
+            return turnOffDirButton()
+          }
         }
         default: {
-          if (valCellsOn(tempCellPower)) return turnOffDirButton()
+          if (valCellsOn(tempCellPower)) {
+            victory()
+            return turnOffDirButton()
+          }
         }
       }
     }
@@ -189,6 +215,34 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
         addEnergy(30)
       }
     }
+  }
+
+  // Show victory animation on cells
+  const victory = () => {
+    powerUpRef?.current?.play()
+    setCellPower(initCellPower)
+    let tempCellPower = [...initCellPower]
+    setVictoryCol(6)
+    let col = 6
+
+    const victoryCallBack = () => {
+      for (let row = 0; row < 3; row++) {
+        const cell = col + row * 7
+        tempCellPower[cell] = true
+      }
+      if (col >= 0) setCellPower(tempCellPower)
+
+      col--
+      setVictoryCol(col)
+
+      // Clear interval and all cells
+      if (col === -2) {
+        setCellPower(initCellPower)
+        clearInterval(victoryIntRef.current)
+      }
+    }
+
+    startInterval(100, victoryIntRef, victoryCallBack)
   }
 
   // Create directional elements
@@ -273,6 +327,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
           loop
           ref={radio}
         />
+        <audio src='/powerUp.wav' ref={powerUpRef} />
       </div>
     </div>
   )

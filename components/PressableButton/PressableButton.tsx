@@ -2,6 +2,7 @@ import { PowerStatus } from 'types'
 import { useRef } from 'react'
 import cx from 'classnames'
 import styles from './PressableButton.module.scss'
+import restartSound from '@/util/restartSound'
 
 type Props = {
   handleClick: React.MouseEventHandler<HTMLButtonElement>
@@ -20,7 +21,7 @@ const PressableButton: React.FC<Props> = ({
 
   const clickWrapper = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     handleClick(e)
-    audioRef?.current?.play()
+    restartSound(audioRef)
   }
 
   return (
