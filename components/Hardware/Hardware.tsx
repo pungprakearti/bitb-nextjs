@@ -20,25 +20,62 @@ const Hardware: React.FC = () => {
   }
 
   const screenText = [
-    'You did it!',
-    'You got this [link=https://github.com/pungprakearti/bitb-nextjs]rig[/link] running.',
-    'What else can you discover?',
+    [
+      'You did it!',
+      'You got this LINKhttps://github.com/pungprakearti/bitb-nextjs****rigLINK running.',
+      'What else can you discover?',
+    ],
+    [
+      'This was built by LINKhttps://www.linkedin.com/in/andrewpungprakearti****Andrew Pungprakearti.LINK',
+      'In his free time, Andrew volunteers',
+      'with LINKhttps://www.wearementorme.org****Mentor Me of PetalumaLINK helping less',
+      'fortunate youths and coaches youth',
+      'hockey for the LINKhttps://santarosaflyers.org/****Santa Rosa Flyers.LINK',
+      'Andrew is also a veteran of the',
+      'United States Marine Corps having',
+      'served during Operation Enduring',
+      'Freedom.',
+    ],
+    [
+      'Frontend: Javascript/Typescript,',
+      'React/NextJS/Gatsby, GraphQL, CSS/Sass.',
+      'Backend: Python, Flask, Node, Express,',
+      'Postgres, SQL.',
+      'Integrations: Auth0, Google Analytics,',
+      'Google ReCaptcha, Pardot, Intercom,',
+      'Zoominfo.',
+      'Testing: Jest, Nightwatch, Cypress',
+    ],
+    [
+      'Email: LINKmailto:andrew.pungprakearti@gmail.com****andrew.pungprakearti@gmail.comLINK',
+      'LinkedIn: LINKhttps://www.linkedin.com/in/andrewpungprakearti****andrewpungprakeartiLINK',
+      'Github: LINKhttps://github.com/pungprakearti****pungprakeartiLINK',
+    ],
+    [
+      'LINK/AndrewPungprakearti_Resume2022.pdf****Click hereLINK to download my resume',
+    ],
   ]
 
   useEffect(() => {
-    setIncText(screenText)
+    setIncText(screenText[0])
   }, [])
 
   // Toggle on and off main power. This resets everything
   const handleMainPower = (turnOn: boolean) => {
     if (turnOn) {
       setEnergy(100) // for testing
-      setIncText(screenText)
+      setIncText(screenText[0])
       return setMainPowerOn(true)
     }
 
     setEnergy(0)
+    setProText([<></>])
+    setCurText(0)
     return setMainPowerOn(false)
+  }
+
+  const handleEnter = () => {
+    setIncText(screenText[curText])
   }
 
   // Add or subtract energy from components
@@ -56,7 +93,6 @@ const Hardware: React.FC = () => {
             energy={energy}
             addEnergy={addEnergy}
             curText={curText}
-            screenText={screenText}
             textOpAndData={textOpAndData}
           />
         </div>
@@ -67,6 +103,7 @@ const Hardware: React.FC = () => {
             mainPowerOn={mainPowerOn}
             curText={curText}
             setCurText={setCurText}
+            handleEnter={handleEnter}
           />
           <HWEnergy energy={energy} />
         </div>

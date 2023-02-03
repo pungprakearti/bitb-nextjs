@@ -10,6 +10,7 @@ type Props = {
   mainPowerOn: boolean
   curText: number
   setCurText: Function
+  handleEnter: Function
 }
 
 const HWSelector: React.FC<Props> = ({
@@ -18,10 +19,11 @@ const HWSelector: React.FC<Props> = ({
   mainPowerOn,
   curText,
   setCurText,
+  handleEnter,
 }) => {
   const [power, setPower] = useState(false)
 
-  const selectionItems = ['welcome', 'about', 'technology']
+  const selectionItems = ['welcome', 'about', 'technology', 'contact', 'resume']
 
   useEffect(() => {
     if (!mainPowerOn) {
@@ -58,7 +60,7 @@ const HWSelector: React.FC<Props> = ({
         }
         break
       default:
-        break
+        if (power) handleEnter()
     }
   }
 

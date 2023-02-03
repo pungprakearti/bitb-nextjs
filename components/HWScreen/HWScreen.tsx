@@ -17,7 +17,6 @@ type Props = {
   energy: number
   addEnergy: Function
   curText: number
-  screenText: string[]
   textOpAndData: TextOpAndData
 }
 
@@ -25,7 +24,6 @@ const HWScreen: React.FC<Props> = ({
   energy,
   addEnergy,
   curText,
-  screenText,
   textOpAndData,
 }) => {
   const { incText, setIncText, proText, setProText } = textOpAndData
@@ -44,7 +42,6 @@ const HWScreen: React.FC<Props> = ({
     if (energy === 0) {
       setPower(false)
       setCount(0)
-      setProText([<></>])
     }
 
     // Start reading initial text
@@ -69,10 +66,15 @@ const HWScreen: React.FC<Props> = ({
 
   // For new incoming text
   useEffect(() => {
-    if (power && proText.length > 0) {
-      if (intervalRef.current > 0) clearInterval(intervalRef.current)
-      setCount(0)
-      startInterval(duration, intervalRef, intervalCallback)
+    if (power) {
+      if (proText.length) {
+        if (intervalRef.current > 0) clearInterval(intervalRef.current)
+        setCount(0)
+      }
+
+      if (incText.length) {
+        startInterval(duration, intervalRef, intervalCallback)
+      }
     }
   }, [incText])
 
@@ -82,7 +84,11 @@ const HWScreen: React.FC<Props> = ({
       const parsedText = parseText(incText[count])
       setCount((prev) => prev + 1)
       const tempArr = [...proText, parsedText]
-      if (tempArr) setProText(tempArr)
+      if (tempArr) {
+        // Add space between text groups
+        if (incText.length === count + 1) setProText([...tempArr, <br></br>])
+        else setProText(tempArr)
+      }
     }
   }
 
