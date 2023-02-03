@@ -89,7 +89,6 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
           DOWN: 0.5,
           RGHT: 0.5,
         })
-        // powerUpRef?.current?.play()
         restartSound(powerUpRef)
         return handleMainPower(true)
       }
@@ -218,6 +217,34 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
     }
   }
 
+  // Show victory animation on cells
+  const victory = () => {
+    powerUpRef?.current?.play()
+    setCellPower(initCellPower)
+    let tempCellPower = [...initCellPower]
+    setVictoryCol(6)
+    let col = 6
+
+    const victoryCallBack = () => {
+      for (let row = 0; row < 3; row++) {
+        const cell = col + row * 7
+        tempCellPower[cell] = true
+      }
+      if (col >= 0) setCellPower(tempCellPower)
+
+      col--
+      setVictoryCol(col)
+
+      // Clear interval and all cells
+      if (col === -2) {
+        setCellPower(initCellPower)
+        clearInterval(victoryIntRef.current)
+      }
+    }
+
+    startInterval(100, victoryIntRef, victoryCallBack)
+  }
+
   // Create directional elements
   let dirEls: JSX.Element[] = []
   const dirNames: Dir[] = ['UP', 'LEFT', 'DOWN', 'RGHT']
@@ -254,34 +281,6 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
   const speakerEl = Array.from(Array(5), (_, i) => (
     <div key={i} className={styles.speakerHole} />
   ))
-
-  // Show victory animation on cells
-  const victory = () => {
-    powerUpRef?.current?.play()
-    setCellPower(initCellPower)
-    let tempCellPower = [...initCellPower]
-    setVictoryCol(6)
-    let col = 6
-
-    const victoryCallBack = () => {
-      for (let row = 0; row < 3; row++) {
-        const cell = col + row * 7
-        tempCellPower[cell] = true
-      }
-      if (col >= 0) setCellPower(tempCellPower)
-
-      col--
-      setVictoryCol(col)
-
-      // Clear interval and all cells
-      if (col === -2) {
-        setCellPower(initCellPower)
-        clearInterval(victoryIntRef.current)
-      }
-    }
-
-    startInterval(100, victoryIntRef, victoryCallBack)
-  }
 
   // Power setting for radio button
   let radioPowerStatus: PowerStatus = 'off'

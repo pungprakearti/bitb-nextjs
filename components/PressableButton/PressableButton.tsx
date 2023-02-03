@@ -21,20 +21,7 @@ const PressableButton: React.FC<Props> = ({
 
   const clickWrapper = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     handleClick(e)
-
-    // If sound is playing, stop sound before playing again.
-    // This makes it so you can click really fast and still get sound
     restartSound(audioRef)
-    // if (
-    //   audioRef.current &&
-    //   audioRef.current.currentTime > 0 &&
-    //   !audioRef.current.paused
-    // ) {
-    //   audioRef.current.pause()
-    //   audioRef.current.currentTime = 0
-    // }
-
-    // audioRef?.current?.play()
   }
 
   return (
