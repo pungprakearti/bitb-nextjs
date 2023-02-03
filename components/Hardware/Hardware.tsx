@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import HWEnergy from '@/components/HWEnergy'
 import HWPanel from '@/components/HWPanel'
 import HWScreen from '@/components/HWScreen'
@@ -63,7 +63,7 @@ const Hardware: React.FC = () => {
   // Toggle on and off main power. This resets everything
   const handleMainPower = (turnOn: boolean) => {
     if (turnOn) {
-      setEnergy(100) // for testing
+      setEnergy(1)
       setIncText(screenText[0])
       return setMainPowerOn(true)
     }
