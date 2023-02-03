@@ -36,6 +36,24 @@ const Hardware: React.FC = () => {
       'served during Operation Enduring',
       'Freedom.',
     ],
+    [
+      'Frontend: Javascript/Typescript,',
+      'React/NextJS/Gatsby, GraphQL, CSS/Sass.',
+      'Backend: Python, Flask, Node, Express,',
+      'Postgres, SQL.',
+      'Integrations: Auth0, Google Analytics,',
+      'Google ReCaptcha, Pardot, Intercom,',
+      'Zoominfo.',
+      'Testing: Jest, Nightwatch, Cypress',
+    ],
+    [
+      'Email: LINKmailto:andrew.pungprakearti@gmail.com****andrew.pungprakearti@gmail.comLINK',
+      'LinkedIn: LINKhttps://www.linkedin.com/in/andrewpungprakearti****andrewpungprakeartiLINK',
+      'Github: LINKhttps://github.com/pungprakearti****pungprakeartiLINK',
+    ],
+    [
+      'LINK/AndrewPungprakearti_Resume2022.pdf****Click hereLINK to download my resume',
+    ],
   ]
 
   useEffect(() => {

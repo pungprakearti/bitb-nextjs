@@ -3,7 +3,7 @@ const genCellsChecker = () => {
   let cellsOn = 0
   const checkeredCells: boolean[] = cells.map((c, i) => {
     if (i % 2 === 0) {
-      if (Math.random() >= 0.75) {
+      if (Math.random() >= 0.8) {
         return false
       } else {
         cellsOn = cellsOn + 1
