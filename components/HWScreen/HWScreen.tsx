@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { PowerStatus } from 'types'
 import cx from 'classnames'
 import PressableButton from '@/components/PressableButton'
+import Nav from '@/components/Nav'
 import startInterval from '@/util/startInterval'
 import parseText from '@/util/parseText'
 import styles from './HWScreen.module.scss'
@@ -177,6 +178,7 @@ const HWScreen: React.FC<Props> = ({ energy, addEnergy, textOpAndData }) => {
 
   return (
     <div className={styles.wrap}>
+      <Nav />
       <div className={styles.inner}>
         <div className={styles.screenWrap}>
           <div className={styles.screenInner}>

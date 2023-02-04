@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @include breakpoint(md-down) {
+    display: none;
+  }
 }
 
 .top {

@@ -6,8 +6,10 @@ import styles from '@/styles/index.module.scss'
 export default function Home() {
   return (
     <div className={cx(styles.wrap, 'container')}>
-      <Nav />
       <Hardware />
+
+      {/* For anything below 1000px */}
+      <Nav />
     </div>
   )
 }
