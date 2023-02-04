@@ -92,7 +92,6 @@ const Hardware: React.FC = () => {
           <HWScreen
             energy={energy}
             addEnergy={addEnergy}
-            curText={curText}
             textOpAndData={textOpAndData}
           />
         </div>

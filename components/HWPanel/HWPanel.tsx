@@ -172,26 +172,30 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
         case 'UP': {
           if (valCellsOff(tempCellPower)) {
             victory()
-            return turnOffDirButton()
+            turnOffDirButton()
           }
+          return
         }
         case 'LEFT': {
           if (valCellsChecker(tempCellPower)) {
             victory()
-            return turnOffDirButton()
+            turnOffDirButton()
           }
+          return
         }
         case 'DOWN': {
           if (valCellsColumn(tempCellPower)) {
             victory()
-            return turnOffDirButton()
+            turnOffDirButton()
           }
+          return
         }
         default: {
           if (valCellsOn(tempCellPower)) {
             victory()
-            return turnOffDirButton()
+            turnOffDirButton()
           }
+          return
         }
       }
     }
