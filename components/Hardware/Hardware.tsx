@@ -54,6 +54,10 @@ const Hardware: React.FC = () => {
     [
       'LINK/AndrewPungprakearti_Resume2022.pdf****Click hereLINK to download my resume',
     ],
+    [
+      'LINKhttps://pixabay.com/music/beats-relaxed-vlog-night-street-131746/****Relaxed Vlog(Night Street)LINK',
+      'by Danielyan Ashot Makichevich',
+    ],
   ]
 
   useEffect(() => {

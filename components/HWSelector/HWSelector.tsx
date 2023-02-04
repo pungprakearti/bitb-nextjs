@@ -23,7 +23,14 @@ const HWSelector: React.FC<Props> = ({
 }) => {
   const [power, setPower] = useState(false)
 
-  const selectionItems = ['welcome', 'about', 'technology', 'contact', 'resume']
+  const selectionItems = [
+    'welcome',
+    'about',
+    'technology',
+    'contact',
+    'resume',
+    'music',
+  ]
 
   useEffect(() => {
     if (!mainPowerOn) {

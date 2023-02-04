@@ -135,11 +135,13 @@
 .text {
   @include screen;
 
+  position: relative;
   height: 100%;
   padding: 10px 20px;
   font-size: rem(16px);
   text-align: left;
   overflow: auto;
+  z-index: 1;
 
   &::-webkit-scrollbar {
     width: 0px;
@@ -151,9 +153,9 @@
     color: $orange;
     text-shadow: 0 0 10px rgba($orange, 0.75);
 
-    animation: animGrow ease 0.5s;
+    animation: fadeIn ease 0.5s;
 
-    @keyframes animGrow {
+    @keyframes fadeIn {
       0% {
         opacity: 0;
       }
