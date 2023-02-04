@@ -246,7 +246,7 @@ const HWPanel: React.FC<Props> = ({ handleMainPower, addEnergy, energy }) => {
       }
     }
 
-    startInterval(100, victoryIntRef, victoryCallBack)
+    startInterval(75, victoryIntRef, victoryCallBack)
   }
 
   // Create directional elements
