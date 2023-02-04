@@ -2,7 +2,8 @@
 
 .wrap {
   position: absolute;
-  left: 180px;
+  left: 0;
+  top: -60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,17 +11,34 @@
   height: 60px;
   z-index: 1;
   opacity: 0.65;
+
+  @include breakpoint(md-down) {
+    position: relative;
+    top: 0;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding-top: 25%;
+  }
 }
 
 .left,
 .right {
   padding: 0 20px;
+
+  @include breakpoint(md-down) {
+    padding: 0;
+  }
 }
 
 .left {
   font-weight: 700;
   font-size: rem(25px);
   text-transform: uppercase;
+
+  @include breakpoint(md-down) {
+    margin-bottom: 60px;
+  }
 }
 
 .right {
@@ -28,6 +46,13 @@
   width: 50%;
   display: flex;
   justify-content: space-between;
+
+  @include breakpoint(md-down) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+  }
 }
 
 .link {
