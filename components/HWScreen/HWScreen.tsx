@@ -141,12 +141,14 @@ const HWScreen: React.FC<Props> = ({ energy, addEnergy, textOpAndData }) => {
       case 'power': {
         if (!power && energy > 54) {
           setPower(!power)
-          return addEnergy(-54)
+          addEnergy(-54)
+          break
         }
 
         if (power) {
           setPower(!power)
-          return addEnergy(54)
+          addEnergy(54)
+          break
         }
       }
       case 'ch+': {
