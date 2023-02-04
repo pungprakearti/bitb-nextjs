@@ -1,0 +1,36 @@
+@import 'styles/main.scss';
+
+.wrap {
+  position: absolute;
+  left: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 700px;
+  height: 60px;
+  z-index: 1;
+  opacity: 0.65;
+}
+
+.left,
+.right {
+  padding: 0 20px;
+}
+
+.left {
+  font-weight: 700;
+  font-size: rem(25px);
+  text-transform: uppercase;
+}
+
+.right {
+  text-transform: uppercase;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  text-decoration: none;
+  font-weight: 900;
+}
