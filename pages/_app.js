@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Script from 'next/script'
 import 'styles/global.scss'
 
@@ -23,6 +24,9 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
+      <Head>
+        <title>Andrew Pungprakearti - Front End Software Engineer</title>
+      </Head>
       <Component {...pageProps} />
     </>
   )
