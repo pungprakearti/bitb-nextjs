@@ -111,6 +111,34 @@ $transition-duration-button: 0.075s;
   }
 }
 
+.orange {
+  .buttonTop {
+    background-color: rgba($orange, 0.7);
+  }
+
+  .button {
+    background-color: $orange;
+
+    &:after {
+      box-shadow: 0 0 15px $orange;
+    }
+  }
+}
+
+.blue {
+  .buttonTop {
+    background-color: rgba($blue, 0.7);
+  }
+
+  .button {
+    background-color: $blue;
+
+    &:after {
+      box-shadow: 0 0 15px $blue;
+    }
+  }
+}
+
 .sel {
   .buttonTop {
     background-color: rgba($lightgray, 0.7);
